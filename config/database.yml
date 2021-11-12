@@ -14,37 +14,36 @@
 # Configure Using Gemfile
 # gem 'pg'
 #
-# default: &default
-#   adapter: postgresql
-#   encoding: unicode
-#   # For details on connection pooling, see Rails configuration guide
-#   # https://guides.rubyonrails.org/configuring.html#database-pooling
-#   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
-  # <<: *default
   primary:
+    <<: *default
     database: primary_database
     # username: root
     # password: <%= ENV['ROOT_PASSWORD'] %>
-    adapter: postgresql
-  primary_replica:
-    database: primary_database
-    # username: root_readonly
-    # password: <%= ENV['ROOT_READONLY_PASSWORD'] %>
-    adapter: postgresql
-    replica: true
+  # primary_replica:
+  #   <<: *default
+  #   database: primary_database
+  #   username: read_only_user
+  #   password: read_pass
+  #   replica: true
   animals:
+    <<: *default
     database: animals_database
     # username: animals_root
     # password: <%= ENV['ANIMALS_ROOT_PASSWORD'] %>
-    adapter: postgresql
     migrations_paths: db/animals_migrate
   animals_replica:
+    <<: *default
     database: animals_database
-    # username: animals_readonly
-    # password: <%= ENV['ANIMALS_READONLY_PASSWORD'] %>
-    adapter: postgresql
+    username: read_only_user
+    password: read_pass
     replica: true
 
 

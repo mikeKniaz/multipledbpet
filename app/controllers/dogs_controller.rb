@@ -3,7 +3,9 @@ class DogsController < ApplicationController
 
   # GET /dogs or /dogs.json
   def index
-    @dogs = Dog.all
+    Dog.connected_to(role: :reading) do
+      @dogs = Dog.all
+    end
   end
 
   # GET /dogs/1 or /dogs/1.json
@@ -59,7 +61,9 @@ class DogsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_dog
-      @dog = Dog.find(params[:id])
+      Dog.connected_to(role: :reading) do
+        @dog = Dog.find(params[:id])
+      end
     end
 
     # Only allow a list of trusted parameters through.
