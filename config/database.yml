@@ -42,8 +42,8 @@ development:
   animals_replica:
     <<: *default
     database: animals_database
-    username: read_only_user
-    password: read_pass
+    username: readonly
+    # password: read_only_pass
     replica: true
 
 
